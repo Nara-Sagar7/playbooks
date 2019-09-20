@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    packages:
+      - git
+      - tree
+      - vim
+      - nano
+      - git
+  tasks:
+  - name: install packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ packages | unique}}"

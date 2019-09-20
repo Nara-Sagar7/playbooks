@@ -1,0 +1,4 @@
+
+[webadmin]
+10.128.0.53  server_package=httpd
+10.128.0.50  server_package=apache2

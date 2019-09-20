@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: uninstall packages
+    package:
+      name: "{{  item  }}"
+      state: absent
+    loop:
+    - "{{ webserver_package }}"
+    - php
+    - php-mysql
+  

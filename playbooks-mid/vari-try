@@ -1,0 +1,14 @@
+
+[ubuntu]
+10.128.0.50 
+
+
+[ubuntu:vars]
+service_package=apache2
+
+
+[centos]
+10.128.0.53
+
+[centos:vars]
+service_package=httpd

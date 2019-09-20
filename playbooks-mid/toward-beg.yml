@@ -1,0 +1,47 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: displaying the debug informaton
+    debug:
+      msg: OS Family is {{ ansible_os_family }}
+  - name: update the ubuntu packages
+    apt:
+      update_cache: yes
+    when: ansible_os_family == "Debian" and "Redhat"
+  - name: install apache
+    package:
+      name: "{{ server_package }}"
+      state: present
+    notify:
+    - restart apache
+  - debug:
+      msg: apache server is installed using "{{ server_package }}"
+  - name: install php packages
+    package: 
+      name: "{{  item  }}"
+      state: present
+    loop:
+    - php
+    - php-mysql
+    notify:
+    - restart apache
+  -  debug:
+      msg: php modules are installed using 
+  - name: create a file at the location
+    get_url:
+      url: https://nara-sagar-public-bucket.s3.amazonaws.com/content.php.txt
+      dest: /var/www/html/info.php
+  - debug:
+      msg: Files are created at the required location
+    notify:
+    - restart apache
+  - name: copy the file
+    copy:
+      src: /etc/sagar.txt
+      dest: /home/ansible/sagar.txt
+  handlers:
+  - name: restart apache
+    service:
+      name: "{{ server_package }}"
+      state: restarted

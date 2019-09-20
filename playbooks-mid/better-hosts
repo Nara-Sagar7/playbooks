@@ -1,0 +1,11 @@
+[ubuntu]
+10.128.0.50 
+
+[ubuntu:vars]
+webserver_package=apache2
+
+[centos]
+10.128.0.53
+
+[centos:vars]
+webserver_package=httpd

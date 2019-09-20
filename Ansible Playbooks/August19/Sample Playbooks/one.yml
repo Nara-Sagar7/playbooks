@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: ansible
+  tasks:
+  - name: update ubuntu packages and install apache2
+    apt:
+      name: apache2
+      update_cache: yes
+      state: present
+ 
+  - name: ensure apache is running
+    service: 
+      name: apache2
+      state: restarted
+  - name: ensure git installed
+    apt:
+       name: git
+       state: present
+  - name: ensure ant is installed
+    apt:
+       name: ant
+       state: present
+  - name:
+    apt:
+      name: php
+      state: present
+
+

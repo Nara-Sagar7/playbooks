@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+  - name: update ubuntu packages
+    package:
+      name: update packages
+      state: updated
+
+  - name: install apache2
+    package:
+      name: install apache2
+      state: present
+    notify:
+    - restart apache2
+  
+  - name: install php packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - php
+    - libapache2-mod-php
+    - php-mysql
+    notify:
+    - restart apache2
+  handlers:
+  -  name: restart apache2
+     service:
+       name: apache2
+       state: restarted
+        

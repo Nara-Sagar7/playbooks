@@ -1,0 +1,3 @@
+[hotinventory]
+10.128.0.53    webserver_package=httpd
+10.128.0.50    webserver_package=apache2

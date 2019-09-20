@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: update ubuntu package && install tomcat8
+    apt:
+      name: tomcat8
+      update_cache: yes
+      state: present
+  - name: install java
+    package:
+      name: openjdk-8-jdk
+      state: present

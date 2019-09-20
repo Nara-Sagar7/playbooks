@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: install apache server
+    package:
+      name: "{{ webserver_package }}"
+      state: present
+    notify:
+    - restart apache
+  - name: instal php packages
+    package:
+      name: "{{  item  }}"
+      state: present
+    loop:
+    - php
+    - php-mysql
+    notify:
+    - restart apache
+  handlers:
+  - name: restart apache
+    service:
+      name: "{{ webserver_package }}"
+      state: restarted
